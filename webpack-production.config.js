@@ -11,6 +11,7 @@ const config = {
   output: {
     path: buildPath, // Path of output file
     filename: 'bundle.js', // Name of output file
+    publicPath: '/build/'
   },
   plugins: [
     // for React optimized
