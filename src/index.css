@@ -46,3 +46,28 @@
   .App-main > .App-panel:nth-child(2) {
     overflow-y: auto;
   }
+
+  @media screen and (max-width: 840px) {
+    .App-logo {
+      display: none;
+    }
+
+    .App-header {
+      height: 30px;
+      padding: 0;
+    }
+
+    .App-header > h2 {
+      margin: 0;
+    }
+
+    .App-main {
+      display: initial;
+      height: 100%;
+    }
+
+    .App-panel {
+      width:100%;
+      max-height: 50vh;
+    }
+  }

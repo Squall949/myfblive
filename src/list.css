@@ -48,9 +48,15 @@
 
 .searchInput {
     font-size: 18px;
+    margin-left: 10px;
 }
 
 .searchButton {
     width: 80px;
     margin-left: 10px;
+    background-color: #3b5998;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
 }

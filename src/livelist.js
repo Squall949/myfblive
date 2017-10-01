@@ -61,7 +61,7 @@ export default class Livelist extends Component {
 
         return (
             <div className="App-panel">
-                <div><input className="searchInput" onChange={this.handleChange} />
+                <div><input placeholder="please input FB ID" className="searchInput" onChange={this.handleChange} />
                     <input type="button" className="searchButton" value="Search" onClick={this.handleSearchClick} />
                 </div>
                 <ul>
