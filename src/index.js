@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import Livelist from './livelist'
+import Livelist from './livelist';
 
 export default class App extends Component {
   constructor(props) {
