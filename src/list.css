@@ -1,0 +1,56 @@
+.App-panel > ul {
+    padding-left: 0;
+}
+
+.video-item {
+    list-style: none;
+    height: 70px;
+    border-bottom: 1px solid gray;
+    cursor: pointer;
+    display: flex;
+    overflow-x: hidden;
+}
+
+.video-item > img {
+    max-width: 100px;
+}
+
+.video-item-content {
+    margin-left: 10px;
+    text-align: left;
+    overflow: hidden;
+}
+
+.video-item-content > div:first-child {
+    max-height: 50%;
+    max-width: calc(50vw - 120px);
+    padding-top: 13px;
+    font-size: 18px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+
+.video-item-content > div:nth-child(2) {
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    color: gray;
+    font-size: 14px;
+}
+
+.App-main > .App-panel:first-child > div {
+    margin-top: 10px;
+    display: flex;
+    height: 30px;
+}
+
+.searchInput {
+    font-size: 18px;
+}
+
+.searchButton {
+    width: 80px;
+    margin-left: 10px;
+}

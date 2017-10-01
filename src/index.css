@@ -22,3 +22,27 @@
   .App-login-btn {
     margin-top:3%;
   }
+
+  .App-main {
+    display: flex;
+    height: calc(100vh - 210px);
+  }
+
+  .App-panel {
+    width:50vw;
+    min-height: 300px;
+    max-height: 500px;
+    padding: 0;
+    margin: 0;
+  }
+
+  .App-main > .App-panel:first-child {
+    overflow-y: auto;
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+    border-bottom: 1px solid gray;
+  }
+
+  .App-main > .App-panel:nth-child(2) {
+    overflow-y: auto;
+  }

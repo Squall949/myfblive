@@ -32,7 +32,11 @@ module.exports = {
           test: /\.js$/,
           loaders: ['babel'],
           exclude: [nodeModulesPath],
-        }]
+        },
+        { 
+            test: /\.css$/, 
+            loader: "style-loader!css-loader" 
+        },]
     },
     plugins: [
         // Enables Hot Modules Replacement

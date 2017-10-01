@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import Livelist from './livelist'
 
 export default class App extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      items: [],
+      isConnected: false,
+      videoUrl: "",
+    };
   }
 
   componentDidMount() {
@@ -19,13 +26,16 @@ export default class App extends Component {
       FB.getLoginStatus( (response) => {
         if (response.status === 'connected') {
             // already Logged into app and Facebook.
-            console.log("GG");
-            
+            this.displayMyLiveList(response);
         } else {
           FB.Event.subscribe('auth.statusChange', this.checkLoginState);
         }
       });
     };
+  }
+
+  componentDidUpdate() {
+    FB.XFBML.parse(document.getElementById('video'));
   }
 
   checkLoginState = () => {
@@ -41,18 +51,58 @@ export default class App extends Component {
       // for FB.getLoginStatus().
       if (response.status === 'connected') {
           // Logged into your app and Facebook.
-          console.log("Y");  
+          this.displayMyLiveList(response); 
       }
   }
 
-  render() {
-    return (
-      <div className="App-login-btn">
-        <div className="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" 
-          data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"
-          scope="public_profile"></div>
-      </div>
+  displayMyLiveList(response) {
+    const uid = response.authResponse.userID;
+
+    this.setState({isConnected:true});
+
+    this.invokeFBapi(uid);
+  }
+
+  invokeFBapi(uid) {
+    FB.api(
+      `/${uid}/live_videos?fields=description,title,creation_time,from,permalink_url`,
+      (response) => {
+        if (response && !response.error) {
+          this.setState({items:response.data});
+        }
+      }
     );
+  }
+
+  showLiveVideo = (url) => {
+    this.setState({videoUrl:`https://www.facebook.com${url}`});
+  }
+
+  loadLiveVideos = (uid) => {
+    this.invokeFBapi(uid);
+  }
+
+  render() {
+    if (this.state.isConnected) {
+      return (
+        <div className="App-main">
+          <Livelist items={this.state.items} showLiveVideo={this.showLiveVideo} loadLiveVideos={this.loadLiveVideos}></Livelist>
+          <div id="video" className="App-panel">
+            <div className="fb-video" data-href={this.state.videoUrl}>
+            </div>
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <div className="App-login-btn">
+          <div className="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" 
+            data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"
+            scope="public_profile,user_posts,user_videos"></div>
+        </div>
+      );
+    }
+    
   }
 }
 
