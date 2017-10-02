@@ -46,13 +46,18 @@ export default class Livelist extends Component {
 
     render() {
         const createItem = (item) => {
+            const title = (item.hasOwnProperty("title"))?item.title:item.description;
+            if (!title) return;
+
+            if (item.status !== "VOD") return;
+
             const uid = item.from.id;
             const created_time = this.parseDateString(item.creation_time).toLocaleString();
             
             return (<li key={item.id} className="video-item" onClick={this.itemClicked.bind(this,item.permalink_url)}>
                     <img src={`http://graph.facebook.com/${uid}/picture?type=normal`} />
                     <div className="video-item-content">
-                        <div>{(item.hasOwnProperty("title"))?item.title:item.description}</div>
+                        <div>{title}</div>
                         <div>{created_time}</div>
                     </div>
                 </li>

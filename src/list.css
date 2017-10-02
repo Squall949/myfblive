@@ -19,11 +19,12 @@
     margin-left: 10px;
     text-align: left;
     overflow: hidden;
+    max-width: calc(50vw - 120px);
 }
 
 .video-item-content > div:first-child {
     max-height: 50%;
-    max-width: calc(50vw - 120px);
+    
     padding-top: 13px;
     font-size: 18px;
     overflow: hidden;
@@ -60,3 +61,9 @@
     color: white;
     cursor: pointer;
 }
+
+@media screen and (max-width: 840px) {
+    .video-item-content {
+      max-width: calc(100vw - 120px);
+    }
+  }
