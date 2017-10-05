@@ -2,7 +2,7 @@
 
 List and display Facebook live videos.
 
-#### **Web App Usage:**
+### **Web App Usage:**
 
 1. Log in to Facebook
 
@@ -20,7 +20,13 @@ but a video is not allowed to watch if the permission of the video is not set to
 
    So, how to get the FB ID? You simply get it from the url of their Facebook page.
 
-   ![Image_4](img/Image_4.png)
+   Clicking user profile's photo
+
+   ![Image_6](img/Image_6.png)
+
+   then, copying the number right behind www.facebook.com
+
+   ![Image_7](img/Image_7.png)
 
 4. This web app is able to  view on mobile devices as well.
 
@@ -28,8 +34,7 @@ but a video is not allowed to watch if the permission of the video is not set to
 
    ​
 
-#### To-do list:
+### **To-do list:**
 
-1. Not all of FB name/id from url are validate, basically it should be a number for ID, so need to get true target ID to get data.
+1. Supporting displaying autocomplete list of user's input ids on search inputbox
 2. Infinite scrolling for list of live videos
-3. Supporting displaying autocomplete list of user's input ids on search inputbox.

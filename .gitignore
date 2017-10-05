@@ -6,3 +6,5 @@ no_use
 # Built by webpack
 bundle.js
 bundle.js.map
+
+npm-debug.log

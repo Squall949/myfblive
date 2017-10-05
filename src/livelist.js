@@ -55,7 +55,7 @@ export default class Livelist extends Component {
             const created_time = this.parseDateString(item.creation_time).toLocaleString();
             
             return (<li key={item.id} className="video-item" onClick={this.itemClicked.bind(this,item.permalink_url)}>
-                    <img src={`http://graph.facebook.com/${uid}/picture?type=normal`} />
+                    <img src={`https://graph.facebook.com/${uid}/picture?type=normal`} />
                     <div className="video-item-content">
                         <div>{title}</div>
                         <div>{created_time}</div>
