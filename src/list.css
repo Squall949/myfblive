@@ -24,6 +24,7 @@
 
 .video-item-content > div:first-child {
     max-height: 50%;
+    
     padding-top: 13px;
     font-size: 18px;
     overflow: hidden;

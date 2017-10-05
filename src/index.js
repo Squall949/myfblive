@@ -65,7 +65,7 @@ export default class App extends Component {
 
   invokeFBapi(uid) {
     FB.api(
-      `/${uid}/live_videos?fields=description,title,creation_time,from,permalink_url`,
+      `/${uid}/live_videos?fields=description,title,creation_time,from,permalink_url,status`,
       (response) => {
         if (response && !response.error) {
           this.setState({items:response.data});
