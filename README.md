@@ -24,7 +24,7 @@ but a video is not allowed to watch if the permission of the video is not set to
 
    ![Image_6](img/Image_6.png)
 
-   then, copying the number/string right behind www.facebook.com
+   then, copying the number/string between www.facebook.com and photos.
 
    ![Image_7](img/Image_7.png)
 
