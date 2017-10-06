@@ -37,6 +37,7 @@ export default class Livelist extends Component {
     }
 
     handleSearchClick() {
+        if (!this.state.search_text) return;
         this.props.loadLiveVideos(this.state.search_text);
     }
     
