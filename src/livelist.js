@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import "./list.css";
+import fire from './fire';
 
 export default class Livelist extends Component {
     constructor(props) {
@@ -8,12 +9,30 @@ export default class Livelist extends Component {
 
         this.state = {
             live_video_items: [],
-            search_text: ""
+            search_text: "",
+            display_search_items: false
         };
 
         this.parseDateString = this.parseDateString.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSearchClick = this.handleSearchClick.bind(this);
+        this.handleSearchTextFocus = this.handleSearchTextFocus.bind(this);
+    }
+
+    componentDidMount() {
+        //get searched list from firebase for autocomplete feature
+        const database = fire.database().ref(`users/${this.props.visitorId}/search_list`);
+        database.on('value', (snapshot) => {
+            this.getData(snapshot.val());
+        });
+    }
+
+    getData(items){
+        const map = new Map(); //for showing autocomplete dropdown list on search field
+        Object.keys(items).map(userId => {
+            map.set(items[userId], userId);
+        });
+
     }
 
     parseDateString(dateStr) {
@@ -34,6 +53,10 @@ export default class Livelist extends Component {
         this.setState({
             search_text: e.target.value
         });
+    }
+
+    handleSearchTextFocus() {
+        this.setState({display_search_items:true});
     }
 
     handleSearchClick() {
@@ -67,7 +90,12 @@ export default class Livelist extends Component {
 
         return (
             <div className="App-panel">
-                <div><input placeholder="please input FB ID" className="searchInput" onChange={this.handleChange} />
+                <div>
+                    <div className="search-field">
+                        <input placeholder="please input FB ID" className="searchInput" onChange={this.handleChange} 
+                            onFocus={this.handleSearchTextFocus} />
+                        <div style={{visibility: (this.state.display_search_items)?'initial':'hidden'}}>sssss</div>
+                    </div>
                     <input type="button" className="searchButton" value="Search" onClick={this.handleSearchClick} />
                 </div>
                 <ul>

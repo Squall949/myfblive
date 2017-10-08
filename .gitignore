@@ -2,9 +2,14 @@
 node_modules
 no_use
 .vscode
+npm-debug.log
 
 # Built by webpack
 bundle.js
 bundle.js.map
 
-npm-debug.log
+# firebase
+.firebaserc
+database.rules.json
+firebase.json
+fire.js
