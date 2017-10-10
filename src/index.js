@@ -90,7 +90,7 @@ export default class App extends Component {
       (response) => {
         if (response && !response.error) {
           const item = {};
-          item[uid.toLowerCase().trim()] = response.name;
+          item[response.id] = response.name;
           database.ref(`users/${this.state.visitorId}/search_list`).update(item); //id:name map
         }
       }
