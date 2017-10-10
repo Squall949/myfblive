@@ -1,5 +1,6 @@
 .App-panel > ul {
     padding-left: 0;
+    margin-bottom: 0;
 }
 
 .video-item {
@@ -49,6 +50,7 @@
 
 .searchInput {
     font-size: 18px;
+    width: 100%;
 }
 
 .searchButton {
@@ -61,15 +63,37 @@
     cursor: pointer;
 }
 
-.search-field {
-   /* position: relative; */
+.search-field > div {
+    width: 50%;
 }
 
-.search-field > div {
+.fav-list {
+    width: 100%;
     max-height: 40vh;
-    border: 2px solid red;
-    /* position: absolute; */
-    color: blue;
+    position: relative;
+    border: 2px solid #d8d8d8;
+    box-shadow: 0 1px 3px 0 rgba(136,153,188,.5);
+    background-color: white;
+}
+
+.fav-list > ul {
+    padding: 0;
+    margin: 0;
+}
+
+.fav-list > ul > li {
+    list-style: none;
+    text-align: left;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    height:25px;
+    font-size: 20px;
+}
+
+.fav-list > ul > li:hover {
+    background-color: #8b9dc3;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 840px) {
