@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Livelist from './livelist';
+import fire from './fire';
 
 export default class App extends Component {
   constructor(props) {
@@ -10,6 +11,7 @@ export default class App extends Component {
       items: [],
       isConnected: false,
       videoUrl: "",
+      visitorId:""
     };
   }
 
@@ -58,7 +60,7 @@ export default class App extends Component {
   displayMyLiveList(response) {
     const uid = response.authResponse.userID;
 
-    this.setState({isConnected:true});
+    this.setState({isConnected:true,visitorId:uid});
 
     this.invokeFBapi(uid);
   }
@@ -80,13 +82,27 @@ export default class App extends Component {
 
   loadLiveVideos = (uid) => {
     this.invokeFBapi(uid);
+
+    //save searched user to firebase database
+    const database = fire.database();
+    FB.api(
+      `/${uid}`, //get searched user's name
+      (response) => {
+        if (response && !response.error) {
+          const item = {};
+          item[uid.toLowerCase().trim()] = response.name;
+          database.ref(`users/${this.state.visitorId}/search_list`).update(item); //id:name map
+        }
+      }
+    );
+    
   }
 
   render() {
     if (this.state.isConnected) {
       return (
         <div className="App-main">
-          <Livelist items={this.state.items} showLiveVideo={this.showLiveVideo} loadLiveVideos={this.loadLiveVideos}></Livelist>
+          <Livelist visitorId={this.state.visitorId} items={this.state.items} showLiveVideo={this.showLiveVideo} loadLiveVideos={this.loadLiveVideos}></Livelist>
           <div id="video" className="App-panel">
             <div className="fb-video" data-href={this.state.videoUrl}>
             </div>

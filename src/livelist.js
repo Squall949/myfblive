@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import "./list.css";
+import fire from './fire';
+import FavList from "./favlist";
 
 export default class Livelist extends Component {
     constructor(props) {
@@ -8,12 +10,26 @@ export default class Livelist extends Component {
 
         this.state = {
             live_video_items: [],
-            search_text: ""
+            search_text: "",
+            display_search_items: false,
+            fav_list: {}
         };
 
         this.parseDateString = this.parseDateString.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSearchClick = this.handleSearchClick.bind(this);
+        this.handleSearchTextFocus = this.handleSearchTextFocus.bind(this);
+        this.handleSearchTextBlur = this.handleSearchTextBlur.bind(this);
+    }
+
+    componentDidMount() {
+        //get searched list from firebase for autocomplete feature
+        const database = fire.database().ref(`users/${this.props.visitorId}/search_list`);
+        database.on('value', (snapshot) => {
+            if (snapshot.val()) {
+                this.setState({fav_list:snapshot.val()});
+            }
+        });
     }
 
     parseDateString(dateStr) {
@@ -31,9 +47,20 @@ export default class Livelist extends Component {
     }
 
     handleChange(e) {
+        this.closeFavList();
         this.setState({
             search_text: e.target.value
         });
+    }
+
+    handleSearchTextFocus() {
+        this.setState({display_search_items:true});
+    }
+
+    handleSearchTextBlur() {
+        setTimeout(() => { //waiting for triggering favorite item clicked
+            this.closeFavList();
+        }, 500);
     }
 
     handleSearchClick() {
@@ -43,6 +70,15 @@ export default class Livelist extends Component {
     
     itemClicked(url) {
         this.props.showLiveVideo(url);
+    }
+
+    closeFavList() {
+        this.setState({display_search_items:false});
+    }
+
+    handleFavListItemClicked = (id) => {
+        if (!id) return;
+        this.props.loadLiveVideos(id);
     }
 
     render() {
@@ -67,7 +103,14 @@ export default class Livelist extends Component {
 
         return (
             <div className="App-panel">
-                <div><input placeholder="please input FB ID" className="searchInput" onChange={this.handleChange} />
+                <div className="search-field">
+                    <div>
+                        <input placeholder="please input FB ID" className="searchInput" onChange={this.handleChange} 
+                            onFocus={this.handleSearchTextFocus} onBlur={this.handleSearchTextBlur}/>
+                        <div id="favList" className="fav-list" style={{visibility: (this.state.display_search_items && Object.keys(this.state.fav_list).length>0)?'initial':'hidden'}}>
+                            <FavList items={this.state.fav_list} itemClicked={this.handleFavListItemClicked} />
+                        </div>
+                    </div>
                     <input type="button" className="searchButton" value="Search" onClick={this.handleSearchClick} />
                 </div>
                 <ul>

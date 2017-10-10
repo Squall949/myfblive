@@ -36,5 +36,13 @@ but a video is not allowed to watch if the permission of the video is not set to
 
 ### **To-do list:**
 
-1. Supporting displaying autocomplete list of user's input ids on search inputbox
+1. ~~Supporting displaying searched live users' list~~  (done)
 2. Infinite scrolling for list of live videos
+
+
+
+### **Skills learned through this project:**
+
+1. React
+2. Facebook API
+3. Firebase
