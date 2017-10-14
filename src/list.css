@@ -96,6 +96,15 @@
     cursor: pointer;
 }
 
+.video-item-more {
+    text-align: center;
+    height:30px;
+    cursor: pointer;
+    line-height: 30px;
+    background-color: #3b5998;
+    color: white;
+}
+
 @media screen and (max-width: 840px) {
     .video-item-content {
       max-width: calc(100vw - 120px);

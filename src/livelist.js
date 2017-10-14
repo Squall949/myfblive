@@ -20,6 +20,7 @@ export default class Livelist extends Component {
         this.handleSearchClick = this.handleSearchClick.bind(this);
         this.handleSearchTextFocus = this.handleSearchTextFocus.bind(this);
         this.handleSearchTextBlur = this.handleSearchTextBlur.bind(this);
+        this.handleLoadmoreClick = this.handleLoadmoreClick.bind(this);
     }
 
     componentDidMount() {
@@ -81,6 +82,10 @@ export default class Livelist extends Component {
         this.props.loadLiveVideos(id);
     }
 
+    handleLoadmoreClick() {
+        this.props.loadMore();
+    }
+
     render() {
         const createItem = (item) => {
             const title = (item.hasOwnProperty("title"))?item.title:item.description;
@@ -115,6 +120,7 @@ export default class Livelist extends Component {
                 </div>
                 <ul>
                     {this.props.items.map(createItem)}
+                    <li className="video-item-more" style={{visibility: (this.props.hasMore)?'initial':'hidden'}} onClick={this.handleLoadmoreClick}>Load more</li>
                 </ul>
             </div>
             

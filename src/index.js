@@ -11,7 +11,10 @@ export default class App extends Component {
       items: [],
       isConnected: false,
       videoUrl: "",
-      visitorId:""
+      visitorId:"",
+      hasMore: false,
+      after: "",
+      view_uid: ""
     };
   }
 
@@ -66,11 +69,17 @@ export default class App extends Component {
   }
 
   invokeFBapi(uid) {
+    if (uid !== this.state.view_uid) {
+      this.setState({view_uid:uid});
+    }
+
     FB.api(
       `/${uid}/live_videos?fields=description,title,creation_time,from,permalink_url,status`,
       (response) => {
         if (response && !response.error) {
           this.setState({items:response.data});
+
+          this.checkPaging(response);
         }
       }
     );
@@ -98,11 +107,32 @@ export default class App extends Component {
     
   }
 
+  checkPaging(response) {
+    if (response.paging && response.paging.next) {
+      this.setState({hasMore:true});
+      this.setState({after:response.paging.cursors.after});
+    }
+    else this.setState({hasMore:false});
+  }
+
+  loadMore = () => {
+    FB.api(
+      `/${this.state.view_uid}/live_videos?fields=description,title,creation_time,from,permalink_url,status&after=${this.state.after}`,
+      (response) => {
+        if (response && !response.error) {
+          this.setState({items:[...this.state.items, ...response.data]});
+
+          this.checkPaging(response);
+        }
+      }
+    );
+  }
+
   render() {
     if (this.state.isConnected) {
       return (
         <div className="App-main">
-          <Livelist visitorId={this.state.visitorId} items={this.state.items} showLiveVideo={this.showLiveVideo} loadLiveVideos={this.loadLiveVideos}></Livelist>
+          <Livelist visitorId={this.state.visitorId} items={this.state.items} showLiveVideo={this.showLiveVideo} loadLiveVideos={this.loadLiveVideos} hasMore={this.state.hasMore} loadMore={this.loadMore}></Livelist>
           <div id="video" className="App-panel">
             <div className="fb-video" data-href={this.state.videoUrl}>
             </div>
