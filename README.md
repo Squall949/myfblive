@@ -37,7 +37,7 @@ but a video is not allowed to watch if the permission of the video is not set to
 ### **To-do list:**
 
 1. ~~Supporting displaying searched live users' list~~  (done)
-2. Infinite scrolling for list of live videos
+2. ~~Loading more for list of live videos~~  (done)
 
 
 
